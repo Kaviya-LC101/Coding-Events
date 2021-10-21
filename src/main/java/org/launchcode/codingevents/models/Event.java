@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 public class Event {
@@ -20,15 +18,30 @@ public class Event {
     @Email(message="Invalid email.Try again")
     private String contactEmail;
 
-    public Event(String name , String description, String contactEmail) {
+    @NotBlank(message="Event place cannot be blank. Place required")
+    private String eventPlace;
+
+    @AssertTrue(message="Attendees must Register. Please check the box")
+    private boolean requiredRegistration;
+
+    @Positive(message="Please Enter valid number.Minimum number of attendees must be 1")
+    private int numberOfAttendees;
+
+    public Event(String name , String description, String contactEmail, String eventPlace, boolean requiredRegistration,
+                 int numberOfAttendees) {
         this.name = name;
         this.description=description;
         this.contactEmail=contactEmail;
+        this.eventPlace=eventPlace;
+        this.requiredRegistration=requiredRegistration;
+        this.numberOfAttendees=numberOfAttendees;
+
+    }
+
+    public Event(){
         this.id=nextId;
         nextId++;
     }
-
-    public Event(){}
 
     public int getId() {
         return id;
@@ -57,6 +70,30 @@ public class Event {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getEventPlace() {
+        return eventPlace;
+    }
+
+    public void setEventPlace(String eventPlace) {
+        this.eventPlace = eventPlace;
+    }
+
+    public boolean getRequiredRegistration() {
+        return requiredRegistration;
+    }
+
+    public void setRequiredRegistration(boolean requiredRegistration) {
+        this.requiredRegistration = requiredRegistration;
+    }
+
+    public int getNumberOfAttendees() {
+        return numberOfAttendees;
+    }
+
+    public void setNumberOfAttendees(int numberOfAttendees) {
+        this.numberOfAttendees = numberOfAttendees;
     }
 
     @Override
